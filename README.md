@@ -35,3 +35,17 @@ and the geo data in a form that can be entered into google maps or arcGIS.
 
 I had some inspiration from http://regex.info/exif.cgi
 
+
+How to use GoExifGPS?
+---------------------
+# Make sure you have git. Tried it on a machine that did not have git so go get didn't work.
+
+$ sudo apt-get install git
+
+$ sudo get github.com/kurtcc/GoExifGPS
+
+# Make sure you already have goexif installed
+
+Look at try.go at how it should be used in terms of what your code should look like.
+Remember to start your code with:
+import "github.com/kurtcc/GoExifGPS" 
