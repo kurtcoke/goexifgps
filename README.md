@@ -27,8 +27,9 @@ go get github.com/rwcarlsen/goexif/exif
 Why did I write GoExifGPS?
 ---------------------------
 
-I'm working on a project to scan social media sites, but for
-now it will be crawling 4chan's /b. If the crawler finds photo's with GEO/GPS data, then
+I'm working on a project to scan social media sites.
+https://github.com/kurtcc/ExifCrawl (Still very messy.)
+For now it will be crawling 4chan's /b. If the crawler finds photo's with GEO/GPS data, then
 it saves the photo and produces a document with the photo's name, context (Comments etc.)
 and the geo data in a form that can be entered into google maps or arcGIS.
 
