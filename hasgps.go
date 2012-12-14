@@ -26,23 +26,4 @@ func ContainsGPS(fname string) bool {
 	
                       
 }  
-/* Usage: (Example)
-package main
 
-import ( 
-"github.com/kurtcc/GoExifGPS"
-"fmt"
-)
-
-func main() {
-	fmt.Println("Lets see if this works.")
-	 Foo := ContainsGPS("WTgX4.jpg")
-
-	 if Foo == false {
-	fmt.Println("Image does not contain geo data.")
-	}
-	if Foo == true { 
-		fmt.Println("Image contains geo data!")
-}
-}
- */
