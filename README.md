@@ -13,15 +13,17 @@ http://go.pkgdoc.org/github.com/rwcarlsen/goexif/exif
 
 NB: Exif package depends on the tiff package.
 
-To install use:
+To install use:  (Make sure you have git when using go get)
 
-go get github.com/rwcarlsen/goexif/tiff
+$ sudo apt-get install git
+
+$ sudo go get github.com/rwcarlsen/goexif/tiff
 
 # Exif package depends on the tiff package
 
 # Then go:
 
-go get github.com/rwcarlsen/goexif/exif
+$ sudo go get github.com/rwcarlsen/goexif/exif
 
 
 Why did I write GoExifGPS?
@@ -42,7 +44,16 @@ How to use GoExifGPS?
 
 $ sudo apt-get install git
 
-$ sudo get github.com/kurtcc/GoExifGPS
+$ sudo go get github.com/kurtcc/GoExifGPS  
+# This should work but you can make sure by navigating to the path something like
+$ cd /usr/lib/go/src/pkg/github/GoExifGPS
+# and do
+$ sudo go install
+
+# Make sure it works
+$ wget http://pastebin.com/raw.php?i=1YcxB25P
+$ cp raw.php\?i\=1YcxB25P try.go
+$ go run try.go
 
 # Make sure you already have goexif installed
 
