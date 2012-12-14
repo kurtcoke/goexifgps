@@ -1,7 +1,6 @@
-package main
+package GoExifGPS
 
 import (
-	"fmt"
 	"github.com/rwcarlsen/goexif/exif"
 	"log"
 	"os"
