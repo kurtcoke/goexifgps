@@ -60,3 +60,30 @@ $ go run try.go
 Look at try.go at how it should be used in terms of what your code should look like.
 Remember to start your code with:
 import "github.com/kurtcc/GoExifGPS" 
+
+# Usage examples:
+
+hasgps.go
+-----------------
+
+// Usage: (Example)
+package main
+
+import (
+"github.com/kurtcc/GoExifGPS"
+"fmt"
+)
+
+func main() {
+        fmt.Println("Lets see if this works.")
+         Foo := ContainsGPS("WTgX4.jpg")
+
+         if Foo == false {
+        fmt.Println("Image does not contain geo data.")
+        }
+        if Foo == true {
+                fmt.Println("Image contains geo data!")
+}
+}
+                                                                                                                                                      30,1          Bot
+
