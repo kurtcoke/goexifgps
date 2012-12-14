@@ -65,7 +65,7 @@ import "github.com/kurtcc/GoExifGPS"
 
 hasgps.go
 -----------------
-
+<code>
 // Usage: (Example)
 package main
 
@@ -85,5 +85,4 @@ func main() {
                 fmt.Println("Image contains geo data!")
 }
 }
-                                                                                                                                                      30,1          Bot
-
+</code>
