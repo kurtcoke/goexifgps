@@ -86,3 +86,60 @@ func main() {
 }
 }
 </pre>
+
+Using GoExifGPS:
+---------------
+
+There will now be two ways to use it. Either by piping an image to stdin:
+(This is just a stupid example , there is no error checking etc.
+<pre>
+$ cat _JEF019769_sm.jpg | try.go
+Output: 37.411995,-121.9953
+</pre>
+
+The code for try.go looks like this:
+<pre>
+package main
+
+import (
+
+"github.com/kurtcc/GoExifGPS"
+"fmt"
+
+)
+
+
+
+func main() {
+	StdinPic, _ := GoExifGPS.StdinDecode()
+	
+// Add hasgps.go's idea in here so if it contains go data run program till end else skip all
+// the rest and just say: Image does not contain geo data.
+//##Contains := GoExifGPS.ContainsGPS(*filename)
+
+
+LatRef, Lat, LongRef,Longd := GoExifGPS.OpenParseJson(StdinPic) 
+
+Latitude := GoExifGPS.FormatGPS(Lat)
+Longitude := GoExifGPS.FormatGPS(Longd)
+// strings are formatted correctly into float32
+
+
+Latitude2 := GoExifGPS.RefFormat(LatRef, Latitude) // Might have to change left hand var name
+Longitude2 := GoExifGPS.RefFormat(LongRef, Longitude)
+
+location := GoExifGPS.MapFriendly(Latitude2, Longitude2)
+
+fmt.Println(location)
+          }
+
+
+</pre>
+
+You can also use this method
+
+<pre>
+$ go run cltool.go -image=imagename.jpg
+
+</pre>
+
