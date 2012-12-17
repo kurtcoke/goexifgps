@@ -25,23 +25,45 @@ func TrimPrefix(s string) string {
 
 // Use like this
 //LatRef, Lat, LongRef,Longd := OpenParseJson("_JEF018993_sm.jpg") 
-func OpenParseJson(filename string) (string, string, string, string) {
-	// I want this to return all four values each as a string.	
-	f, err := os.Open(filename)
+func OpenClose(filename string) (*Exif, error) {
+		f, err := os.Open(filename)
 	if err != nil {
-		panic(err)
+	log.Fatal(err)
 	}
-	defer f.Close()
 
 	x, err := exif.Decode(f)
+	f.Close()
 	if err != nil {
-		panic(err)
-	}
-	if x == nil {
-		fmt.Println(" ")
+		return nil, err
 	}
 
-	b, err := x.MarshalJSON()
+	return x, nil
+}
+//log.Fatal(err) log.Fatal makes the program stop so we don't need this
+// coz we won't be able to get false ever.
+func StdinDecode() (*Exif, error) {
+	r = os.Stdin
+	x, err := exif.Decode(r)
+	if err != nil {
+fmt.Fprintf(os.Stderr, "Failed to read input: %s\n", err)
+os.Exit(INPUT_FAIL)
+}
+ 
+	return x , nil
+
+
+	}
+
+
+}
+
+
+func OpenParseJson(E  *Exif) (string, string, string, string) {
+	// I want this to return all four values each as a string.	
+	
+
+
+	b, err := E.MarshalJSON()
 	if err != nil {
 		panic(err) //Format die output properly
 	}
