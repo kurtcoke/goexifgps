@@ -5,11 +5,19 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/rwcarlsen/goexif/exif"
+	"github.com/rwcarlsen/goexif/tiff"
 	"os"
 	"strings"
+	"log"
 
 //This is how to print a given field
 )
+type Exif struct {
+tif *tiff.Tiff
+
+main map[FieldName]*tiff.Tag
+}
+type FieldName string
 
 func TrimSuffix(s, suffix string) string {
 	if strings.HasSuffix(s, suffix) {
@@ -25,7 +33,7 @@ func TrimPrefix(s string) string {
 
 // Use like this
 //LatRef, Lat, LongRef,Longd := OpenParseJson("_JEF018993_sm.jpg") 
-func OpenClose(filename string) (*Exif, error) {
+func OpenClose(filename string) (*exif.Exif, error) {
 		f, err := os.Open(filename)
 	if err != nil {
 	log.Fatal(err)
@@ -41,24 +49,24 @@ func OpenClose(filename string) (*Exif, error) {
 }
 //log.Fatal(err) log.Fatal makes the program stop so we don't need this
 // coz we won't be able to get false ever.
-func StdinDecode() (*Exif, error) {
-	r = os.Stdin
-	x, err := exif.Decode(r)
+func StdinDecode() (*exif.Exif, error) {
+	r := os.Stdin
+	xoo, err := exif.Decode(r)
 	if err != nil {
 fmt.Fprintf(os.Stderr, "Failed to read input: %s\n", err)
-os.Exit(INPUT_FAIL)
+os.Exit(0)
 }
  
-	return x , nil
+	return xoo , nil
 
 
 	}
 
 
-}
 
 
-func OpenParseJson(E  *Exif) (string, string, string, string) {
+
+func OpenParseJson(E  *exif.Exif) (string, string, string, string) {
 	// I want this to return all four values each as a string.	
 	
 
