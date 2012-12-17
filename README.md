@@ -113,9 +113,6 @@ import (
 func main() {
 	StdinPic, _ := GoExifGPS.StdinDecode()
 	
-// Add hasgps.go's idea in here so if it contains go data run program till end else skip all
-// the rest and just say: Image does not contain geo data.
-//##Contains := GoExifGPS.ContainsGPS(*filename)
 
 
 LatRef, Lat, LongRef,Longd := GoExifGPS.OpenParseJson(StdinPic) 
@@ -146,7 +143,7 @@ $ go run cltool.go -image=_JEF019769_sm.jpg
 If you would like to use it this way,your  code should look like this:
 <pre>
 
- ckage main
+package main
 
 import (
 	"flag"
