@@ -139,7 +139,44 @@ fmt.Println(location)
 You can also use this method
 
 <pre>
-$ go run cltool.go -image=imagename.jpg
-
+$ go run cltool.go -image=_JEF019769_sm.jpg 
+37.411995,-121.9953
 </pre>
 
+If you would like to use it this way,your  code should look like this:
+<pre>
+
+ ckage main
+
+import (
+	"flag"
+	"fmt"
+	"github.com/kurtcc/GoExifGPS"
+)
+
+var filename *string = flag.String("image", "", "Don't use pngs")
+
+func main() {
+	flag.Parse()
+
+        PointToPic , _ := GoExifGPS.OpenClose(*filename)
+		LatRef, Lat, LongRef, Longd := GoExifGPS.OpenParseJson(PointToPic)
+		//Returns (string,string,string,string)
+		// Use in GoExifGPS/parse.go
+		// TrimSuffix and TrimPrefix are used in a OpenParseJson (Closure)
+		// You can still use them for something else on their own.
+
+		Latitude := GoExifGPS.FormatGPS(Lat)
+		Longitude := GoExifGPS.FormatGPS(Longd)
+		// strings are formatted correctly into float32
+
+		// Take Ref values and make lat and longitude either + or - based on ref values
+
+		Latitude2 := GoExifGPS.RefFormat(LatRef, Latitude) 
+		Longitude2 := GoExifGPS.RefFormat(LongRef, Longitude)
+
+		location := GoExifGPS.MapFriendly(Latitude2, Longitude2)
+
+		fmt.Println(location)
+	}
+</pre>
