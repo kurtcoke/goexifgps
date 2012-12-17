@@ -76,7 +76,7 @@ import (
 
 func main() {
         fmt.Println("Lets see if this works.")
-         Foo := ContainsGPS("WTgX4.jpg")
+         Foo := GoExifGPS.ContainsGPS("WTgX4.jpg")
 
          if Foo == false {
         fmt.Println("Image does not contain geo data.")
