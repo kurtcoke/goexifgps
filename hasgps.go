@@ -2,18 +2,11 @@ package GoExifGPS
 
 import (
 	"github.com/rwcarlsen/goexif/exif"
-	"github.com/rwcarlsen/goexif/tiff"
 	"io"
 	"log"
 	"os"
 )
 
-type Exif struct {
-	tif *tiff.Tiff
-
-	main map[FieldName]*tiff.Tag
-}
-type FieldName string
 
 func ContainsGPS(fname string) bool {
 
@@ -37,7 +30,7 @@ func ContainsGPS(fname string) bool {
 // Remember to add error checking here
 func ContainsGPSFromStdin() bool {
 	r := os.Stdin
-	x, err := exif.Decode(f)
+	x, err := exif.Decode(r)
 	if err != nil {
 		return false
 	}
