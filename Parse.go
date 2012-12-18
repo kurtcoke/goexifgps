@@ -1,4 +1,5 @@
 package GoExifGPS
+
 // Author : kurtcc on github
 // This will be called parse.go
 import (
@@ -6,16 +7,17 @@ import (
 	"fmt"
 	"github.com/rwcarlsen/goexif/exif"
 	"github.com/rwcarlsen/goexif/tiff"
+	"log"
 	"os"
 	"strings"
-	"log"
 
 //This is how to print a given field
 )
-type Exif struct {
-tif *tiff.Tiff
 
-main map[FieldName]*tiff.Tag
+type Exif struct {
+	tif *tiff.Tiff
+
+	main map[FieldName]*tiff.Tag
 }
 type FieldName string
 
@@ -34,9 +36,9 @@ func TrimPrefix(s string) string {
 // Use like this
 //LatRef, Lat, LongRef,Longd := OpenParseJson("_JEF018993_sm.jpg") 
 func OpenClose(filename string) (*exif.Exif, error) {
-		f, err := os.Open(filename)
+	f, err := os.Open(filename)
 	if err != nil {
-	log.Fatal(err)
+		log.Fatal(err)
 	}
 
 	x, err := exif.Decode(f)
@@ -47,29 +49,23 @@ func OpenClose(filename string) (*exif.Exif, error) {
 
 	return x, nil
 }
+
 //log.Fatal(err) log.Fatal makes the program stop so we don't need this
 // coz we won't be able to get false ever.
 func StdinDecode() (*exif.Exif, error) {
 	r := os.Stdin
 	xoo, err := exif.Decode(r)
 	if err != nil {
-fmt.Fprintf(os.Stderr, "Failed to read input: %s\n", err)
-os.Exit(0)
-}
- 
-	return xoo , nil
-
-
+		fmt.Fprintf(os.Stderr, "Failed to read input: %s\n", err)
+		os.Exit(0)
 	}
 
+	return xoo, nil
 
+}
 
-
-
-func OpenParseJson(E  *exif.Exif) (string, string, string, string) {
+func OpenParseJson(E *exif.Exif) (string, string, string, string) {
 	// I want this to return all four values each as a string.	
-	
-
 
 	b, err := E.MarshalJSON()
 	if err != nil {
