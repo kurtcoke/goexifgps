@@ -7,7 +7,6 @@ import (
 	"os"
 )
 
-
 func ContainsGPS(fname string) bool {
 
 	f, err := os.Open(fname)
