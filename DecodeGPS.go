@@ -1,7 +1,6 @@
 package GoExifGPS
 
 import (
-	"fmt"
 	"github.com/kurtcc/GoExifGPS"
 )
 
