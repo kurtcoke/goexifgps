@@ -4,17 +4,17 @@ package GoExifGPS
 for doing that.  We don't want to run through this function here completely only to realise we did all that processing just to get an error "Does not contain gps data. */
 func DecodeGPS(filename string) (string, error) {
 	var Location string
-	PointToPic, err := GoExifGPS.OpenClose(filename)
+	PointToPic, err := OpenClose(filename)
 	if err != nil {
 		return Location, err
 	}
 	if err == nil {
-		LatRef, Lat, LongRef, LongD := GoExifGPS.OpenParseJson(PointToPic)
-		Latitude := GoExifGPS.FormatGPS(Lat)
-		Longitude := GoExifGPS.FormatGPS(LongD)
-		Latitude = GoExifGPS.RefFormat(LatRef, Latitude)
-		Longitude = GoExifGPS.RefFormat(LongRef, Longitude)
-		Location = GoExifGPS.MapFriendly(Latitude, Longitude)
+		LatRef, Lat, LongRef, LongD := OpenParseJson(PointToPic)
+		Latitude := FormatGPS(Lat)
+		Longitude := FormatGPS(LongD)
+		Latitude = RefFormat(LatRef, Latitude)
+		Longitude = RefFormat(LongRef, Longitude)
+		Location = MapFriendly(Latitude, Longitude)
 		return Location, err
 	}
 	return Location, err
