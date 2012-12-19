@@ -70,21 +70,22 @@ hasgps.go
 package main
 
 import (
-"github.com/kurtcc/GoExifGPS"
-"fmt"
+    "fmt"
+    "github.com/kurtcc/GoExifGPS"
 )
 
 func main() {
-        fmt.Println("Lets see if this works.")
-         Foo := GoExifGPS.ContainsGPS("WTgX4.jpg")
+    fmt.Println("Lets see if this works.")
+    Foo := GoExifGPS.ContainsGPS("WTgX4.jpg")
 
-         if Foo == false {
+    if Foo == false {
         fmt.Println("Image does not contain geo data.")
-        }
-        if Foo == true {
-                fmt.Println("Image contains geo data!")
+    }   
+    if Foo == true {
+        fmt.Println("Image contains geo data!")
+    }   
 }
-}
+
 </pre>
 
 Using GoExifGPS:
@@ -102,33 +103,29 @@ The code for try.go looks like this:
 package main
 
 import (
-
-"github.com/kurtcc/GoExifGPS"
-"fmt"
-
+    "fmt"
+    "github.com/kurtcc/GoExifGPS"
 )
 
-
-
 func main() {
-	StdinPic, _ := GoExifGPS.StdinDecode()
-	
+    StdinPic, err := GoExifGPS.StdinDecode()
+    if err != nil {
+        panic(err)
+    }   
 
+    LatRef, Lat, LongRef, Longd := GoExifGPS.OpenParseJson(StdinPic)
 
-LatRef, Lat, LongRef,Longd := GoExifGPS.OpenParseJson(StdinPic) 
+    Latitude := GoExifGPS.FormatGPS(Lat)
+    Longitude := GoExifGPS.FormatGPS(Longd)
+    // strings are formatted correctly into float32
 
-Latitude := GoExifGPS.FormatGPS(Lat)
-Longitude := GoExifGPS.FormatGPS(Longd)
-// strings are formatted correctly into float32
+    Latitude2 := GoExifGPS.RefFormat(LatRef, Latitude) // Might have to change left hand var name
+    Longitude2 := GoExifGPS.RefFormat(LongRef, Longitude)
 
+    location := GoExifGPS.MapFriendly(Latitude2, Longitude2)
 
-Latitude2 := GoExifGPS.RefFormat(LatRef, Latitude) // Might have to change left hand var name
-Longitude2 := GoExifGPS.RefFormat(LongRef, Longitude)
-
-location := GoExifGPS.MapFriendly(Latitude2, Longitude2)
-
-fmt.Println(location)
-          }
+    fmt.Println(location)
+}
 
 
 </pre>
@@ -146,34 +143,68 @@ If you would like to use it this way,your  code should look like this:
 package main
 
 import (
-	"flag"
-	"fmt"
-	"github.com/kurtcc/GoExifGPS"
+    "flag"
+    "fmt"
+    "github.com/kurtcc/GoExifGPS"
 )
 
 var filename *string = flag.String("image", "", "Don't use pngs")
 
 func main() {
-	flag.Parse()
+    flag.Parse()
 
-        PointToPic , _ := GoExifGPS.OpenClose(*filename)
-		LatRef, Lat, LongRef, Longd := GoExifGPS.OpenParseJson(PointToPic)
-		//Returns (string,string,string,string)
-		// Use in GoExifGPS/parse.go
-		// TrimSuffix and TrimPrefix are used in a OpenParseJson (Closure)
-		// You can still use them for something else on their own.
+    PointToPic, _ := GoExifGPS.OpenClose(*filename)
+    LatRef, Lat, LongRef, Longd := GoExifGPS.OpenParseJson(PointToPic)
+    //Returns (string,string,string,string)
+    // Use in GoExifGPS/parse.go
+    // TrimSuffix and TrimPrefix are used in a OpenParseJson (Closure)
+    // You can still use them for something else on their own.
 
-		Latitude := GoExifGPS.FormatGPS(Lat)
-		Longitude := GoExifGPS.FormatGPS(Longd)
-		// strings are formatted correctly into float32
+    Latitude := GoExifGPS.FormatGPS(Lat)
+    Longitude := GoExifGPS.FormatGPS(Longd)
+    // strings are formatted correctly into float32
 
-		// Take Ref values and make lat and longitude either + or - based on ref values
+    // Take Ref values and make lat and longitude either + or - based on ref values
 
-		Latitude2 := GoExifGPS.RefFormat(LatRef, Latitude) 
-		Longitude2 := GoExifGPS.RefFormat(LongRef, Longitude)
+    Latitude2 := GoExifGPS.RefFormat(LatRef, Latitude)
+    Longitude2 := GoExifGPS.RefFormat(LongRef, Longitude)
 
-		location := GoExifGPS.MapFriendly(Latitude2, Longitude2)
+    location := GoExifGPS.MapFriendly(Latitude2, Longitude2)
 
-		fmt.Println(location)
-	}
+    fmt.Println(location)
+}
+
+</pre>
+
+
+Usage for DecodeGPS:
+--------------------
+
+DecodeGPS takes filename as argument. This is handy for example when we walk a folder. 
+
+<pre>
+	package main
+
+import (
+    "fmt"
+    "github.com/kurtcc/GoExifGPS"
+)
+
+func main() {
+
+    Contains := GoExifGPS.ContainsGPS("imagename.jpg")
+    if Contains == true {
+
+        Location, err := GoExifGPS.DecodeGPS("imagename.jpg")
+        if err != nil {
+            panic(err)
+        }   
+        fmt.Println("Contains Geo data!")
+        fmt.Println(Location)
+
+    }   
+    if Contains == false {
+        fmt.Println("Does not contain geo data.")
+    }   
+}
 </pre>
