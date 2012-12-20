@@ -16,3 +16,5 @@ Remember to go fmt everything before commiting.
 Delete some pictures in ExifCrawl repo which is related to this one, or atleast using this one. 
 
 Put Xx_test.go files in main repo, pictures for testing are in testdata/
+
+Add method to take io.Reader to ContainsStdin and StdinDecode.
