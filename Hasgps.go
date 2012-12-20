@@ -12,23 +12,27 @@ func ContainsGPS(fname string) (bool, error) {
 	if err != nil {
 		return false, err
 	}
-	Contains, err2 := ContainsGPSFromStdin(f)
-	return Contains, err
+	var Contains bool
+	Contains, err = ContainsGPSFromStdin(f)
+	/* if err2 == nil {
+	return Contains, nil
+	} else {
+		return false ,err2
+	}
 	// Ok fine this works , later make ContainsGPSFromStdin return errors too
-
+	*/
+	return Contains, err
 }
 
 // Remember to add error checking here
 func ContainsGPSFromStdin(R io.Reader) (bool, error) {
+
 	x, err := exif.Decode(R)
 	if err != nil {
 		return false, err
 	}
-	_,err2 := x.Get("GPSLatitude")   //returns (*tiff.Tag, error)
-	if err2 == nil {
-		return true, nil
-	}
-	if err2 != nil {
-		return false, err2
-}                                                            
+	_, err = x.Get("GPSLatitude") //returns (*tiff.Tag, error)
+
+	return err != io.EOF, err
+
 }
