@@ -7,7 +7,6 @@ import (
 	"fmt"
 	"github.com/rwcarlsen/goexif/exif"
 	"github.com/rwcarlsen/goexif/tiff"
-	"io"
 	"os"
 	"strings"
 
@@ -39,18 +38,12 @@ func OpenClose(filename string) (*exif.Exif, error) {
 	var ExifData *exif.Exif
 	f, err := os.Open(filename)
 	if err == nil {
-		ExifData, err = StdinDecode(f)
+		ExifData, err = exif.Decode(f)
 	}
 	return ExifData, err
 }
 
-//log.Fatal(err) log.Fatal makes the program stop so we don't need this
-// coz we won't be able to get false ever.
-func StdinDecode(R io.Reader) (*exif.Exif, error) {
-	xoo, err := exif.Decode(R)
-	return xoo, err
 
-}
 
 func OpenParseJson(E *exif.Exif) (string, string, string, string) {
 	// I want this to return all four values each as a string.	
