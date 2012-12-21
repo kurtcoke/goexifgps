@@ -18,3 +18,5 @@ Delete some pictures in ExifCrawl repo which is related to this one, or atleast 
 Put Xx_test.go files in main repo, pictures for testing are in testdata/
 
 Add method to take io.Reader to ContainsStdin and StdinDecode.
+
+Maybe write more tests?
