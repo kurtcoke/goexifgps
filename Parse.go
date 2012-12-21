@@ -43,8 +43,6 @@ func OpenClose(filename string) (*exif.Exif, error) {
 	return ExifData, err
 }
 
-
-
 func OpenParseJson(E *exif.Exif) (string, string, string, string) {
 	// I want this to return all four values each as a string.	
 
