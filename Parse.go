@@ -48,7 +48,7 @@ func OpenClose(filename string) (*exif.Exif, error) {
 // coz we won't be able to get false ever.
 func StdinDecode(R io.Reader) (*exif.Exif, error) {
 	xoo, err := exif.Decode(R)
-	return
+	return xoo, err
 
 }
 
