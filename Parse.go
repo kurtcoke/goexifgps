@@ -7,8 +7,8 @@ import (
 	"fmt"
 	"github.com/rwcarlsen/goexif/exif"
 	"github.com/rwcarlsen/goexif/tiff"
-	"os"
 	"io"
+	"os"
 	"strings"
 
 //This is how to print a given field
