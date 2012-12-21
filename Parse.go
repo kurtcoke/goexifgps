@@ -36,31 +36,19 @@ func TrimPrefix(s string) string {
 // Use like this
 //LatRef, Lat, LongRef,Longd := OpenParseJson("_JEF018993_sm.jpg") 
 func OpenClose(filename string) (*exif.Exif, error) {
+	var ExifData *exif.Exif
 	f, err := os.Open(filename)
-	if err != nil {
-		log.Fatal(err)
+	if err == nil {
+		ExifData, err = StdinDecode(f)
 	}
-
-	x, err := exif.Decode(f)
-	f.Close()
-	if err != nil {
-		return nil, err
-	}
-
-	return x, nil
+	return ExifData, err
 }
 
 //log.Fatal(err) log.Fatal makes the program stop so we don't need this
 // coz we won't be able to get false ever.
-func StdinDecode() (*exif.Exif, error) {
-	r := os.Stdin
-	xoo, err := exif.Decode(r)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Failed to read input: %s\n", err)
-		os.Exit(0)
-	}
-
-	return xoo, nil
+func StdinDecode(R io.Reader) (*exif.Exif, error) {
+	xoo, err := exif.Decode(R)
+	return
 
 }
 
