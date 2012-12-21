@@ -7,6 +7,6 @@ func TestOpenClose(t *testing.T) {
 	// This image is working and should open with no errors.
 	_, err := OpenClose(TrueImage)
 	if err != nil {
-		t.Error("This image has been tested and should work.", err) //Should I put err here as well?
+		t.Error("This image has been tested and should work.", err) //Should I put err here ?
 	}
 }
