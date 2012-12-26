@@ -1,4 +1,5 @@
 package GoExifGPS
+
 // Author: kurtcc on github
 import (
 	"fmt"
