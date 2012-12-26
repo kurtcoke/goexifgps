@@ -1,4 +1,6 @@
 package GoExifGPS
+
+import "github.com/rwcarlsen/goexif/exif"
 // Author kurtcc on github.com
 
 /*
@@ -21,6 +23,6 @@ func DecodeGPS(ExifData *exif.Exif) (string, error) {
 		Longitude := FormatGPS(LongD)
 		Latitude = RefFormat(LatRef, Latitude)
 		Longitude = RefFormat(LongRef, Longitude)
-		Location = MapFriendly(Latitude, Longitude)
+		Location := MapFriendly(Latitude, Longitude)
 		return Location, err
 }
