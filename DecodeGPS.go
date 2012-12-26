@@ -17,12 +17,13 @@ Location , err2 := GoExifGPS.DecodeGPS(ExifData)
 for doing that.  We don't want to run through this function here completely only to realise we did all that processing just to get an error "Does not contain gps data. */
 
 
-func DecodeGPS(ExifData *exif.Exif) (string, error) {
+func DecodeGPS(ExifData *exif.Exif) string {
 		LatRef, Lat, LongRef, LongD := OpenParseJson(ExifData)
 		Latitude := FormatGPS(Lat)
 		Longitude := FormatGPS(LongD)
 		Latitude = RefFormat(LatRef, Latitude)
 		Longitude = RefFormat(LongRef, Longitude)
 		Location := MapFriendly(Latitude, Longitude)
-		return Location, err
+		return Location 
+		// Maybe later make OpenParseJson return errors if/when they occur.
 }
