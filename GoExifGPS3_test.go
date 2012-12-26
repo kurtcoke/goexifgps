@@ -1,0 +1,5 @@
+package GoExifGPS
+
+import "testing"
+
+
