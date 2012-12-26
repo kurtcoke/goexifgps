@@ -16,13 +16,11 @@ for doing that.  We don't want to run through this function here completely only
 
 
 func DecodeGPS(ExifData *exif.Exif) (string, error) {
-		LatRef, Lat, LongRef, LongD := OpenParseJson(PointToPic)
+		LatRef, Lat, LongRef, LongD := OpenParseJson(ExifData)
 		Latitude := FormatGPS(Lat)
 		Longitude := FormatGPS(LongD)
 		Latitude = RefFormat(LatRef, Latitude)
 		Longitude = RefFormat(LongRef, Longitude)
 		Location = MapFriendly(Latitude, Longitude)
 		return Location, err
-	}
-	return Location, err
 }
