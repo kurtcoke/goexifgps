@@ -13,6 +13,8 @@ func TestDecodeGPS(t *testing.T) {
 	GPSLocation := DecodeGPS(ExifData)
 	if len(GPSLocation) == 0  {
 		t.Error("This image should open fine with no errors!")
+		// Should return a string value that can be used to find location on 
+		// google maps
 	}
 }
 
