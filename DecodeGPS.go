@@ -1,6 +1,7 @@
 package GoExifGPS
 
 import "github.com/rwcarlsen/goexif/exif"
+
 // Author kurtcc on github.com
 
 /*
@@ -16,14 +17,13 @@ Location , err2 := GoExifGPS.DecodeGPS(ExifData)
 /* Assume we know the file has gps exif data. Use hasgps.go to check for it, has two functions
 for doing that.  We don't want to run through this function here completely only to realise we did all that processing just to get an error "Does not contain gps data. */
 
-
 func DecodeGPS(ExifData *exif.Exif) string {
-		LatRef, Lat, LongRef, LongD := OpenParseJson(ExifData)
-		Latitude := FormatGPS(Lat)
-		Longitude := FormatGPS(LongD)
-		Latitude = RefFormat(LatRef, Latitude)
-		Longitude = RefFormat(LongRef, Longitude)
-		Location := MapFriendly(Latitude, Longitude)
-		return Location 
-		// Maybe later make OpenParseJson return errors if/when they occur.
+	LatRef, Lat, LongRef, LongD := OpenParseJson(ExifData)
+	Latitude := FormatGPS(Lat)
+	Longitude := FormatGPS(LongD)
+	Latitude = RefFormat(LatRef, Latitude)
+	Longitude = RefFormat(LongRef, Longitude)
+	Location := MapFriendly(Latitude, Longitude)
+	return Location
+	// Maybe later make OpenParseJson return errors if/when they occur.
 }
