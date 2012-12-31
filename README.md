@@ -36,7 +36,10 @@ it saves the photo and produces a document with the photo's name, context (Comme
 and the geo data in a form that can be entered into google maps or arcGIS.
 
 I had some inspiration from http://regex.info/exif.cgi
-
+Also Go programming language is being used to develope web applications and 
+not just tradional systems programming software, this library could be used
+to make a very cool web app to upload photo's to and then display the
+GPS exifdata on a map. (Coming soon)
 
 How to use GoExifGPS?
 ---------------------
@@ -51,9 +54,7 @@ $ cd /usr/lib/go/src/pkg/github/GoExifGPS
 $ sudo go install
 
 # Make sure it works
-$ wget http://pastebin.com/raw.php?i=1YcxB25P
-$ cp raw.php\?i\=1YcxB25P try.go
-$ go run try.go
+Did all the tests run without errors?
 
 # Make sure you already have goexif installed
 
