@@ -18,7 +18,9 @@ Location , err2 := GoExifGPS.DecodeGPS(ExifData)
 for doing that.  We don't want to run through this function here completely only to realise we did all that processing just to get an error "Does not contain gps data. */
 
 func DecodeGPS(ExifData *exif.Exif) string {
+	// (string,error)
 	LatRef, Lat, LongRef, LongD := OpenParseJson(ExifData)
+	// Need OpenParseJson to catch errors so we can add error checking here.
 	Latitude := FormatGPS(Lat)
 	Longitude := FormatGPS(LongD)
 	Latitude = RefFormat(LatRef, Latitude)
