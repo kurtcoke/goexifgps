@@ -19,7 +19,7 @@ for doing that.  We don't want to run through this function here completely only
 
 func DecodeGPS(ExifData *exif.Exif) string {
 	// (string,error)
-	LatRef, Lat, LongRef, LongD := OpenParseJson(ExifData)
+	LatRef, Lat, LongRef, LongD := GetGPS(ExifData)
 	// Need OpenParseJson to catch errors so we can add error checking here.
 	Latitude := FormatGPS(Lat)
 	Longitude := FormatGPS(LongD)
