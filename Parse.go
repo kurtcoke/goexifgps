@@ -43,9 +43,9 @@ func OpenClose(filename string) (*exif.Exif, error) {
 	return ExifData, err
 }
 
-func OpenParseJson(E *exif.Exif) (string, string, string, string) {
+func GetGPS(E *exif.Exif) (string, string, string, string) {
 	// I want this to return all four values each as a string.	
-
+           // Was named OpenParseJson now named GetGPS
 	b, err := E.MarshalJSON()
 	if err != nil {
 		panic(err) //Format die output properly
