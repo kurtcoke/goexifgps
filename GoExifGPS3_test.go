@@ -1,4 +1,4 @@
-package GoExifGPS
+package goexifgps
 
 import "testing"
 
