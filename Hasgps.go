@@ -1,4 +1,4 @@
-package GoExifGPS
+package goexifgps
 
 import (
 	"github.com/rwcarlsen/goexif/exif"
