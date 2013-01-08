@@ -46,7 +46,8 @@ func OpenClose(filename string) (*exif.Exif, error) {
 	}
 	return ExifData, err
 }
-                                    // Gonna make it also return errors. (*GeoFields, error)
+
+// Gonna make it also return errors. (*GeoFields, error)
 func GetGPS(E *exif.Exif) *GeoFields {
 	// I want this to return all four values each as a string.	
 	// Was named OpenParseJson now named GetGPS
@@ -61,7 +62,7 @@ func GetGPS(E *exif.Exif) *GeoFields {
 		panic(err)
 	}
 
-    F.LatRef = dat["GPSLatitudeRef"].(string) //Lat and LatRef
+	F.LatRef = dat["GPSLatitudeRef"].(string) //Lat and LatRef
 	num := dat["GPSLatitude"].([]interface{})
 
 	F.LongRef = dat["GPSLongitudeRef"].(string)
