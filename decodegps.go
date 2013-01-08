@@ -22,7 +22,7 @@ func DecodeGPS(ExifData *exif.Exif) string {
 	F := GetGPS(ExifData)
 	// Need OpenParseJson to catch errors so we can add error checking here.
 	Latitude := FormatGPS(F.Lat)
-	Longitude := FormatGPS(F.LongD)
+	Longitude := FormatGPS(F.Long)
 	Latitude = RefFormat(F.LatRef, Latitude)
 	Longitude = RefFormat(F.LongRef, Longitude)
 	Location := MapFriendly(Latitude, Longitude)
