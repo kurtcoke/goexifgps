@@ -20,6 +20,10 @@ type Exif struct {
 }
 type FieldName string
 
+type GeoFields struct {
+	LatRef, Lat, LongRef, Long string
+}
+
 func TrimSuffix(s, suffix string) string {
 	if strings.HasSuffix(s, suffix) {
 		s = s[:len(s)-len(suffix)]
@@ -42,10 +46,12 @@ func OpenClose(filename string) (*exif.Exif, error) {
 	}
 	return ExifData, err
 }
-
-func GetGPS(E *exif.Exif) (string, string, string, string) {
+                                    // Gonna make it also return errors. (*GeoFields, error)
+func GetGPS(E *exif.Exif) *GeoFields {
 	// I want this to return all four values each as a string.	
-           // Was named OpenParseJson now named GetGPS
+	// Was named OpenParseJson now named GetGPS
+	// Gebruik exif.Get[Some field related to gps] om te check vir errors
+	F := new(GeoFields)
 	b, err := E.MarshalJSON()
 	if err != nil {
 		panic(err) //Format die output properly
@@ -55,21 +61,21 @@ func GetGPS(E *exif.Exif) (string, string, string, string) {
 		panic(err)
 	}
 
-	numR := dat["GPSLatitudeRef"].(string) //Lat and LatRef
+    F.LatRef = dat["GPSLatitudeRef"].(string) //Lat and LatRef
 	num := dat["GPSLatitude"].([]interface{})
 
-	num2R := dat["GPSLongitudeRef"].(string)
+	F.LongRef = dat["GPSLongitudeRef"].(string)
 	num2 := dat["GPSLongitude"].([]interface{})
 
 	//*** Latitude
 	Snum := fmt.Sprintf("%s", num)
 	Tnum1 := TrimPrefix(Snum)
-	Tnum := TrimSuffix(Tnum1, "]")
+	F.Lat = TrimSuffix(Tnum1, "]")
 
 	// *** Longitude
 	Snum2 := fmt.Sprintf("%s", num2)
 	Tnum2 := TrimPrefix(Snum2)
-	Tnum_2 := TrimSuffix(Tnum2, "]")
+	F.Long = TrimSuffix(Tnum2, "]")
 
-	return numR, Tnum, num2R, Tnum_2
+	return F
 }
