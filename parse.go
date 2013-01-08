@@ -4,6 +4,7 @@ package goexifgps
 // This will be called parse.go
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/rwcarlsen/goexif/exif"
 	"github.com/rwcarlsen/goexif/tiff"
@@ -48,10 +49,15 @@ func OpenClose(filename string) (*exif.Exif, error) {
 }
 
 // Gonna make it also return errors. (*GeoFields, error)
-func GetGPS(E *exif.Exif) *GeoFields {
+func GetGPS(E *exif.Exif) (*GeoFields, error) {
 	// I want this to return all four values each as a string.	
 	// Was named OpenParseJson now named GetGPS
 	// Gebruik exif.Get[Some field related to gps] om te check vir errors
+	_, err := exif.Get["GPSLatitude"]
+	if err != nil {
+		errors.new("Does not contain GPS data.")
+	}
+
 	F := new(GeoFields)
 	b, err := E.MarshalJSON()
 	if err != nil {
