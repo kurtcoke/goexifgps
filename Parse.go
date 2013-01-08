@@ -1,4 +1,4 @@
-package GoExifGPS
+package goexifgps
 
 // Author : kurtcc on github
 // This will be called parse.go
