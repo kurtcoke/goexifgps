@@ -4,7 +4,6 @@ package goexifgps
 // This will be called parse.go
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
 	"github.com/rwcarlsen/goexif/exif"
 	"github.com/rwcarlsen/goexif/tiff"
@@ -54,7 +53,7 @@ func GetGPS(E *exif.Exif) (*GeoFields, error) {
 	// Was named OpenParseJson now named GetGPS
 	// Gebruik exif.Get[Some field related to gps] om te check vir errors
 	F := new(GeoFields)
-	_, err := exif.Get["GPSLatitude"]
+	_, err := E.Get["GPSLatitude"]
 	if err != nil {
 		return F, err
 	}
@@ -84,5 +83,5 @@ func GetGPS(E *exif.Exif) (*GeoFields, error) {
 	Tnum2 := TrimPrefix(Snum2)
 	F.Long = TrimSuffix(Tnum2, "]")
 
-	return F
+	return F, nil
 }
