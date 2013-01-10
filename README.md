@@ -1,9 +1,9 @@
-GoExifGPS
+goexifgps
 =========
 
 Just a small library to get GPS values extracted from jpeg's using rwcarlsen's goexif library into a form readable by google maps and similiar mapping tools e.g arcGIS.
 
-Goexif:
+goexif:
 -------
 
 Go exif is by rwcarlsen on github here is the link to goexif on his page:
@@ -26,66 +26,28 @@ $ sudo go get github.com/rwcarlsen/goexif/tiff
 $ sudo go get github.com/rwcarlsen/goexif/exif
 
 
-Why did I write GoExifGPS?
----------------------------
-
-I'm working on a project to scan social media sites.
-https://github.com/kurtcc/ExifCrawl (Still very messy.)
-For now it will be crawling 4chan's /b. If the crawler finds photo's with GEO/GPS data, then
-it saves the photo and produces a document with the photo's name, context (Comments etc.)
-and the geo data in a form that can be entered into google maps or arcGIS.
-
-I had some inspiration from http://regex.info/exif.cgi
-Also Go programming language is being used to develope web applications and 
-not just tradional systems programming software, this library could be used
-to make a very cool web app to upload photo's to and then display the
-GPS exifdata on a map. (Coming soon)
-
 How to use GoExifGPS?
 ---------------------
 # Make sure you have git. Tried it on a machine that did not have git so go get didn't work.
 
 $ sudo apt-get install git
 
-$ sudo go get github.com/kurtcc/GoExifGPS  
-# This should work but you can make sure by navigating to the path something like
-$ cd /usr/lib/go/src/pkg/github/GoExifGPS
-# and do
-$ sudo go install
+$ go get github.com/kurtcc/GoExifGPS  
+# Make sure your Gopath is set you can check if it is set by running 
+$ go env
 
-# Make sure it works
-Did all the tests run without errors?
+
+
 
 # Make sure you already have goexif installed
 
 Look at try.go at how it should be used in terms of what your code should look like.
 Remember to start your code with:
-import "github.com/kurtcc/GoExifGPS" 
+import "github.com/kurtcc/goexifgps" 
 
 # Usage examples:
 
-hasgps.go
------------------
-<pre>
-// Usage: (Example)
-package main
 
-import (
-    "fmt"
-    "github.com/kurtcc/GoExifGPS"
-)
-
-func main() {
-    fmt.Println("Lets see if this works.")
-    Foo := GoExifGPS.ContainsGPS("WTgX4.jpg")
-
-    if Foo == false {
-        fmt.Println("Image does not contain geo data.")
-    }   
-    if Foo == true {
-        fmt.Println("Image contains geo data!")
-    }   
-}
 
 </pre>
 
@@ -105,29 +67,31 @@ package main
 
 import (
     "fmt"
-    "github.com/kurtcc/GoExifGPS"
+    "github.com/kurtcc/goexifgps"
+    "github.com/rwcarlsen/goexif/exif"
+    "io"
+    "os"
 )
 
 func main() {
-    StdinPic, err := GoExifGPS.StdinDecode()
-    if err != nil {
-        panic(err)
+    var R io.Reader
+    R = os.Stdin
+    ExifData, err := exif.Decode(R)
+    if err == io.EOF {
+        fmt.Println("Error decoding exif, or now exif in file.")
+    }   
+    if err != io.EOF {
+        Location, err2 := goexifgps.DecodeGPS(ExifData)
+        if err2 != io.EOF {
+            fmt.Println(Location)
+        }   
+        if err2 == io.EOF {
+            fmt.Println("No GPS data in Exif!")
+
+        }   
     }   
 
-    LatRef, Lat, LongRef, Longd := GoExifGPS.OpenParseJson(StdinPic)
-
-    Latitude := GoExifGPS.FormatGPS(Lat)
-    Longitude := GoExifGPS.FormatGPS(Longd)
-    // strings are formatted correctly into float32
-
-    Latitude2 := GoExifGPS.RefFormat(LatRef, Latitude) // Might have to change left hand var name
-    Longitude2 := GoExifGPS.RefFormat(LongRef, Longitude)
-
-    location := GoExifGPS.MapFriendly(Latitude2, Longitude2)
-
-    fmt.Println(location)
 }
-
 
 </pre>
 
@@ -141,71 +105,8 @@ $ go run cltool.go -image=_JEF019769_sm.jpg
 If you would like to use it this way,your  code should look like this:
 <pre>
 
-package main
 
-import (
-    "flag"
-    "fmt"
-    "github.com/kurtcc/GoExifGPS"
-)
-
-var filename *string = flag.String("image", "", "Don't use pngs")
-
-func main() {
-    flag.Parse()
-
-    PointToPic, _ := GoExifGPS.OpenClose(*filename)
-    LatRef, Lat, LongRef, Longd := GoExifGPS.OpenParseJson(PointToPic)
-    //Returns (string,string,string,string)
-    // Use in GoExifGPS/parse.go
-    // TrimSuffix and TrimPrefix are used in a OpenParseJson (Closure)
-    // You can still use them for something else on their own.
-
-    Latitude := GoExifGPS.FormatGPS(Lat)
-    Longitude := GoExifGPS.FormatGPS(Longd)
-    // strings are formatted correctly into float32
-
-    // Take Ref values and make lat and longitude either + or - based on ref values
-
-    Latitude2 := GoExifGPS.RefFormat(LatRef, Latitude)
-    Longitude2 := GoExifGPS.RefFormat(LongRef, Longitude)
-
-    location := GoExifGPS.MapFriendly(Latitude2, Longitude2)
-
-    fmt.Println(location)
-}
 
 </pre>
 
 
-Usage for DecodeGPS:
---------------------
-
-DecodeGPS takes filename as argument. This is handy for example when we walk a folder. 
-
-<pre>
-	package main
-
-import (
-    "fmt"
-    "github.com/kurtcc/GoExifGPS"
-)
-
-func main() {
-
-    Contains := GoExifGPS.ContainsGPS("imagename.jpg")
-    if Contains == true {
-
-        Location, err := GoExifGPS.DecodeGPS("imagename.jpg")
-        if err != nil {
-            panic(err)
-        }   
-        fmt.Println("Contains Geo data!")
-        fmt.Println(Location)
-
-    }   
-    if Contains == false {
-        fmt.Println("Does not contain geo data.")
-    }   
-}
-</pre>
