@@ -46,7 +46,7 @@ func OpenClose(filename string) (*exif.Exif, error) {
 	ExifData, err2 := exif.Decode(f)
 	f.Close()
 	if err2 != nil {
-		panic(err2)
+		return nil, err2
 	}
 	return ExifData, nil
 
