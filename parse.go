@@ -46,7 +46,7 @@ func OpenClose(filename string) (*exif.Exif, error) {
 		ExifData, err = exif.Decode(f)
  
 	}
-	return ExifData{}, err
+	return nil, err
 }
 
 // Gonna make it also return errors. (*GeoFields, error)
