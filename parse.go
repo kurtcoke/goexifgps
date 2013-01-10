@@ -62,7 +62,8 @@ func GetGPS(E *exif.Exif) (*GeoFields, error) {
 	if err != nil {
 		panic(err)
 	}
-
+    //Figure out how I am going to use only Get's instead of this hacky way of parsing the data
+	// that I'm currently using.
 	b, err2 := E.MarshalJSON()
 	if err2 != nil {
 		panic(err2) //Format die output properly
