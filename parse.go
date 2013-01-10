@@ -57,10 +57,9 @@ func GetGPS(E *exif.Exif) (*GeoFields, error) {
 	// I want this to return all four values each as a string.	
 	// Was named OpenParseJson now named GetGPS
 	// Gebruik exif.Get[Some field related to gps] om te check vir errors
-	F := new(GeoFields)
 	_, err := Get("GPSLatitude")
 	if err != nil {
-		return F, err
+		panic(err)
 	}
 
 	b, err2 := E.MarshalJSON()
