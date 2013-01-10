@@ -39,12 +39,11 @@ func TrimPrefix(s string) string {
 // Use like this
 //LatRef, Lat, LongRef,Longd := OpenParseJson("_JEF018993_sm.jpg") 
 func OpenClose(filename string) (*exif.Exif, error) {
-	var ExifData *exif.Exif
 	f, err := os.Open(filename)
 	defer f.Close()
 	if err == nil {
-		ExifData, err = exif.Decode(f)
- 
+		ExifData, err2 := exif.Decode(f)
+		return ExifData, err2
 	}
 	return nil, err
 }
@@ -68,7 +67,7 @@ func GetGPS(E *exif.Exif) (*GeoFields, error) {
 	if err = json.Unmarshal(b, &dat); err != nil {
 		panic(err)
 	}
-    // This is the last commit where I use dat["GPSLatitude"] etc, everything works fine here
+	// This is the last commit where I use dat["GPSLatitude"] etc, everything works fine here
 	// next I need to try just use x.Get("GPSLatitude")
 	// if I can't get that to work I will fall back to this commit where everything worked.
 	F.LatRef = dat["GPSLatitudeRef"].(string) //Lat and LatRef
