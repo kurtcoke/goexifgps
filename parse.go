@@ -43,10 +43,10 @@ func OpenClose(filename string) (*exif.Exif, error) {
 	if err != nil {
 		panic(err)
 	}
-	ExifData, err = exif.Decode(f)
+	ExifData, err2 := exif.Decode(f)
 	f.Close()
-	if err != nil {
-		panic(err)
+	if err2 != nil {
+		panic(err2)
 	}
 	return ExifData, nil
 
