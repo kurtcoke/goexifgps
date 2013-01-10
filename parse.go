@@ -39,15 +39,17 @@ func TrimPrefix(s string) string {
 // Use like this
 //LatRef, Lat, LongRef,Longd := OpenParseJson("_JEF018993_sm.jpg") 
 func OpenClose(filename string) (*exif.Exif, error) {
-	ExifData := new(exif.Exif)
 	f, err := os.Open(filename)
-	defer f.Close()
-	if err == nil {
-		ExifData, err = exif.Decode(f)
-
+	if err != nil {
+		panic(err)
 	}
+	ExifData, err = exif.Decode(f)
+	f.Close()
+	if err != nil {
+		panic(err)
+	}
+	return ExifData, nil
 
-	return ExifData, err
 }
 
 // Gonna make it also return errors. (*GeoFields, error)
@@ -56,7 +58,7 @@ func GetGPS(E *exif.Exif) (*GeoFields, error) {
 	// Was named OpenParseJson now named GetGPS
 	// Gebruik exif.Get[Some field related to gps] om te check vir errors
 	F := new(GeoFields)
-	_, err := E.Get("GPSLatitude")
+	_, err := Get("GPSLatitude")
 	if err != nil {
 		return F, err
 	}
