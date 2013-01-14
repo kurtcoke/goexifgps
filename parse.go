@@ -67,8 +67,6 @@ func GetGPS(E *exif.Exif) (*GeoFields, error) {
 		panic(err)
 	}
 
-    
-	
 	LatRefVal, err := E.Get("GPSLatitudeRef") //Lat and LatRef
 	LongRefVal, err := E.Get("GPSLongitudeRef")
 

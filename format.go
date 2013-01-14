@@ -9,43 +9,26 @@ import (
 
 //This will be called format.go
 
-func FormatGPS(s string) float32 {
-	// Accepts string and returns float32 representation.
-	// Then we can output this to file or stdout and use it on google maps (Correct format.)
-
-	Fs := strings.Split(s, " ") // Formatted s
-	// Fs was foo previously
-
-	sHours := strings.Split(Fs[0], "/")   //Hours  was splitN
-	sMinutes := strings.Split(Fs[1], "/") // Minutes   was splitN2
-	sSeconds := strings.Split(Fs[2], "/") //Seconds   was splitN3
-
-	//Hours 
-	sp, _ := strconv.Atoi(sHours[0])
-	sp2, _ := strconv.Atoi(sHours[1])
-	Hours := float32(sp) / float32(sp2)
-
-	//Minutes
-	Msp, _ := strconv.Atoi(sMinutes[0])
-	Msp2, _ := strconv.Atoi(sMinutes[1])
-	Minutes := float32(Msp) / float32(Msp2)
-
-	//Seconds
-	Ssp, _ := strconv.Atoi(sSeconds[0])
-	Ssp2, _ := strconv.Atoi(sSeconds[1])
-	Seconds := float32(Ssp) / float32(Ssp2)
-
-	//Try stackoverflow suggestion D = H + M/60 + 60/3600
-	//Lat N==- S==+ 
-	//Long E==+ W==-
-	dGPS := Hours + Minutes/float32(60) + Seconds/float32(3600)
-	//fmt.Println(dGPS)
-	//fmt.Println(minutes)
-	//fmt.Println(seconds)
-	//for xx := range foofoo {
-	//fmt.Println(foofoo[xx])
-	//}
-	return dGPS //Decimal GPS 
+func FormatGPS(t *tiff.Tag) float64 {
+     
+	 Dec := (make[]float64,3)
+	 for count:= 0; count <3; count++ {
+		 A := t.Rat(count)
+		 Numer := A.Num()
+		 Denom := A.Denom()
+		 Dec := float64(Numer)/float64(Denom)
+		 switch count {
+			 case 0:
+			 	break
+			case 1:
+			Dec /= 60
+			case 2:
+			Dec /= 3600
+		 }
+		 return Dec[count]
+	//dGPS := Hours + Minutes/float32(60) + Seconds/float32(3600)
+}
+Decimal := Dec
 }
 
 //Add function to for Lat and LongRef to make negative if S or W
