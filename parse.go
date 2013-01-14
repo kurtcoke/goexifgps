@@ -58,37 +58,30 @@ func GetGPS(E *exif.Exif) (*GeoFields, error) {
 	// Was named OpenParseJson now named GetGPS
 	// Gebruik exif.Get[Some field related to gps] om te check vir errors
 	F := new(GeoFields)
-	_, err := E.Get("GPSLatitude")
+	LatVal, err := E.Get("GPSLatitude")
+	if err != nil {
+		panic(err)
+	}     
+	LongVal, err := E.Get("GPSLongitude")
 	if err != nil {
 		panic(err)
 	}
-    //Figure out how I am going to use only Get's instead of this hacky way of parsing the data
-	// that I'm currently using.
-	b, err2 := E.MarshalJSON()
-	if err2 != nil {
-		panic(err2) //Format die output properly
-	}
-	var dat map[string]interface{}
-	if err = json.Unmarshal(b, &dat); err != nil {
-		panic(err)
-	}
-	// This is the last commit where I use dat["GPSLatitude"] etc, everything works fine here
-	// next I need to try just use x.Get("GPSLatitude")
-	// if I can't get that to work I will fall back to this commit where everything worked.
-	F.LatRef = dat["GPSLatitudeRef"].(string) //Lat and LatRef
-	num := dat["GPSLatitude"].([]interface{})
 
-	F.LongRef = dat["GPSLongitudeRef"].(string)
-	num2 := dat["GPSLongitude"].([]interface{})
+    
+	
+	LatRefVal, err := E.Get("GPSLatitudeRef") //Lat and LatRef
+	LongRefVal, err := E.Get("GPSLongitudeRef")
 
+    F.LatRef = LatRefVal.StringVal()
+	F.LongRef = LongRefVal.StringVal()
+	LatVal2 := LatVal.String()
+	LongVal2 := LongVal.String()
 	//*** Latitude
-	Snum := fmt.Sprintf("%s", num)
-	Tnum1 := TrimPrefix(Snum)
+	Tnum1 := TrimPrefix(LatVal2)
 	F.Lat = TrimSuffix(Tnum1, "]")
 
 	// *** Longitude
-	Snum2 := fmt.Sprintf("%s", num2)
-	Tnum2 := TrimPrefix(Snum2)
+	Tnum2 := TrimPrefix(LongVal2)
 	F.Long = TrimSuffix(Tnum2, "]")
 
 	return F, nil
