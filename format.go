@@ -16,19 +16,19 @@ func FormatGPS(t *tiff.Tag) float64 {
 		 A := t.Rat(count)
 		 Numer := A.Num()
 		 Denom := A.Denom()
-		 Dec := float64(Numer)/float64(Denom)
+		 Dec[count] := float64(Numer)/float64(Denom)
 		 switch count {
 			 case 0:
 			 	break
 			case 1:
-			Dec /= 60
+			Dec[1] /= 60
 			case 2:
-			Dec /= 3600
+			Dec[2] /= 3600
 		 }
 		 return Dec[count]
 	//dGPS := Hours + Minutes/float32(60) + Seconds/float32(3600)
 }
-Decimal := Dec
+return Dec[0] + Dec[1] + Dec[2]
 }
 
 //Add function to for Lat and LongRef to make negative if S or W
