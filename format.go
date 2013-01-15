@@ -9,32 +9,23 @@ import (
 
 //This will be called format.go
 
-func FormatGPS(t *tiff.Tag) float64 {
-     
-	 Dec := (make[]float64,3)
+func FormatGPS(t *tiff.Tag) float32 {
+  //I could also make this float64 but I don't think this would give better results?   
+	 Dec := (make[]float32,3)
 	 for count:= 0; count <3; count++ {
 		 A := t.Rat(count)
 		 Numer := A.Num()
 		 Denom := A.Denom()
-		 Dec[count] := float64(Numer)/float64(Denom)
-		 switch count {
-			 case 0:
-			 	break
-			case 1:
-			Dec[1] /= 60
-			case 2:
-			Dec[2] /= 3600
+		 Dec[count] := float32(Numer)/float32(Denom)
 		 }
-		 return Dec[count]
+		   
+		DecGPS := Dec[0] + Dec[1]/60 +Dec[2]/3600
+		return DecGPS
 	//dGPS := Hours + Minutes/float32(60) + Seconds/float32(3600)
 }
-return Dec[0] + Dec[1] + Dec[2]
-}
 
-//Add function to for Lat and LongRef to make negative if S or W
-//LongitudeRef and LatitudeRef has type string.
 func RefFormat(ref string, decGPS float32) float32 { //Pass Ref and result of formatGPS
-
+// The program would throw errors if there was no gps data before it ran this part!
 	switch ref {
 	case "N":
 		break
