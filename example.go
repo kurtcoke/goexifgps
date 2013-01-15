@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"io"
-	"github.com/kurtcc/goexifgps"
 )
 
 func main() {
