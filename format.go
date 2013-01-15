@@ -3,8 +3,7 @@ package goexifgps
 // Author: kurtcc on github
 import (
 	"fmt"
-	"strconv"
-	"strings"
+	"github.com/rwcarlsen/goexif/tiff"
 )
 
 //This will be called format.go
