@@ -30,7 +30,7 @@ $ sudo go get github.com/rwcarlsen/goexif/exif
 How to use GoExifGPS?
 ---------------------
 
-$ go get github.com/kurtcc/GoExifGPS  
+$ go get github.com/kurtcc/goexifgps
 # Make sure your Gopath is set you can check if it is set by running 
 
 
