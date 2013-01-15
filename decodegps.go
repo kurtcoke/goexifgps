@@ -20,13 +20,12 @@ func DecodeGPS(ExifData *exif.Exif) (string, error) {
 	// (string,error)
 	F, err := GetGPS(ExifData)
 	if err != nil {
-		return "", err
+		return "", err //maybe log(err)
 	}
 	// Need OpenParseJson to catch errors so we can add error checking here.
-	Latitude := FormatGPS(F.Lat)
-	Longitude := FormatGPS(F.Long)
-	Latitude = RefFormat(F.LatRef, Latitude)
-	Longitude = RefFormat(F.LongRef, Longitude)
+	
+	Latitude = RefFormat(F.LatRef, F.Lat)
+	Longitude = RefFormat(F.LongRef, F.Long)
 	Location := MapFriendly(Latitude, Longitude)
 	return Location, nil
 	// Maybe later make OpenParseJson return errors if/when they occur.
