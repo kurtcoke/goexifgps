@@ -14,13 +14,16 @@ func FormatGPS(t *tiff.Tag) float32 {
 	//I could also make this float64 but I don't think this would give better results?   
 	Dec := make([]float32, 3)
 	for count := 0; count < 3; count++ {
+		/* I could just not use all this bload if i used Rat2 method from tiff package lets test if first. 	
 		A := t.Rat(count)
 		Numer := A.Num()
 		Denom := A.Denom()
-		Dec[count] = float32(Numer) / float32(Denom)
+		Dec[count] = float32(Numer) / float32(Denom) */
+		Numer,Denom := t.Rat2(count) // They are now of int64 type
+		Dec[count] = float32(Numer)/float32(Denom) //Still need to type cast
 	}
 
-	DecGPS := Dec[0] + Dec[1]/60 + Dec[2]/3600
+	DecGPS := float32(Dec[0]) + float32(Dec[1]/60) + float32(Dec[2]/3600)
 	return DecGPS
 	//dGPS := Hours + Minutes/float32(60) + Seconds/float32(3600)
 }
