@@ -25,17 +25,7 @@ type GeoFields struct {
 	Lat , Long float32 
 }
 
-func TrimSuffix(s, suffix string) string {
-	if strings.HasSuffix(s, suffix) {
-		s = s[:len(s)-len(suffix)]
-	}
-	return s
-}
 
-func TrimPrefix(s string) string {
-	s = s[1:]
-	return s
-}
 
 // Use like this
 //LatRef, Lat, LongRef,Longd := OpenParseJson("_JEF018993_sm.jpg") 
