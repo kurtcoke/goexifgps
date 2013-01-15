@@ -18,11 +18,9 @@ type Exif struct {
 type FieldName string
 
 type GeoFields struct {
-	LatRef,LongRef string
-	Lat , Long float32 
+	LatRef, LongRef string
+	Lat, Long       float32
 }
-
-
 
 // Use like this
 //LatRef, Lat, LongRef,Longd := OpenParseJson("_JEF018993_sm.jpg") 
@@ -62,7 +60,6 @@ func GetGPS(E *exif.Exif) (*GeoFields, error) {
 
 	F.LatRef = LatRefVal.StringVal()
 	F.LongRef = LongRefVal.StringVal()
-
 
 	// *** Longitude
 
