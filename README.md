@@ -1,7 +1,10 @@
 goexifgps
 =========
 
-Just a small library to get GPS values extracted from jpeg's using rwcarlsen's goexif library into a form readable by google maps and similiar mapping tools e.g arcGIS.
+Just a small library to get GPS values extracted from jpeg's using rwcarlsen's goexif 
+library into a form readable by google maps and similiar mapping tools e.g arcGIS.
+
+cmd.go is a commandline tool. You can use a bash script to scan large amounts of photo's with the command line tool and just write stdout to a text file. 
 
 goexif:
 -------
@@ -14,32 +17,16 @@ http://go.pkgdoc.org/github.com/rwcarlsen/goexif/exif
 
 NB: Exif package depends on the tiff package.
 
-To install use:  (Make sure you have git when using go get)
-
-$ sudo apt-get install git
-
-$ sudo go get github.com/rwcarlsen/goexif/tiff
-
-# Exif package depends on the tiff package
-
-# Then go:
-
-$ sudo go get github.com/rwcarlsen/goexif/exif
+To install: 
 
 
-How to use GoExifGPS?
----------------------
+$ go get github.com/rwcarlsen/goexif/tiff
+
+$ go get github.com/rwcarlsen/goexif/exif
+
 
 $ go get github.com/kurtcc/goexifgps
-# Make sure your Gopath is set you can check if it is set by running 
 
-
-
-# Usage examples:
-
-
-
-</pre>
 
 Using cmd.go:
 ---------------
