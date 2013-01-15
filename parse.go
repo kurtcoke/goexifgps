@@ -21,7 +21,8 @@ type Exif struct {
 type FieldName string
 
 type GeoFields struct {
-	LatRef, Lat, LongRef, Long string
+	LatRef,LongRef string
+	Lat , Long float32 
 }
 
 func TrimSuffix(s, suffix string) string {
@@ -62,23 +63,21 @@ func GetGPS(E *exif.Exif) (*GeoFields, error) {
 	if err != nil {
 		panic(err)
 	}
+	F.Lat = FormatGPS(LatVal)
 	LongVal, err := E.Get("GPSLongitude")
 	if err != nil {
 		panic(err)
 	}
+	F.Long = FormatGPS(LongVal)
 
 	LatRefVal, err := E.Get("GPSLatitudeRef") //Lat and LatRef
 	LongRefVal, err := E.Get("GPSLongitudeRef")
 
 	F.LatRef = LatRefVal.StringVal()
 	F.LongRef = LongRefVal.StringVal()
-	
-	Tnum1 := TrimPrefix(LatVal2)
-	F.Lat = TrimSuffix(Tnum1, "]")
+
 
 	// *** Longitude
-	Tnum2 := TrimPrefix(LongVal2)
-	F.Long = TrimSuffix(Tnum2, "]")
 
 	return F, nil
 }
