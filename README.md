@@ -15,7 +15,6 @@ https://github.com/rwcarlsen/goexif
 The docs for goexif are here:
 http://go.pkgdoc.org/github.com/rwcarlsen/goexif/exif
 
-NB: Exif package depends on the tiff package.
 
 To install: 
 
