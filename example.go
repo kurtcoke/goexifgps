@@ -12,7 +12,7 @@ func main() {
 	//TrueImage := "_JEF018993_sm.jpg"
     Image := "WTgX4.jpg"
 	//Image := "_JEF018993_sm.jpg" 
-	ExifData, err := goexifgps.OpenClose(Image)
+	ExifData, err := OpenClose(Image)
 	if err == io.EOF {
 		fmt.Println("No exif data in file!")
 		}
@@ -21,7 +21,7 @@ func main() {
 
 
 	//F := goexifgps.GetGPS(ExifData)
-	Location, err2 := goexifgps.DecodeGPS(ExifData)
+	Location, err2 := DecodeGPS(ExifData)
     if err2 == io.EOF { 
 		fmt.Println("No GPS data in Exif!")
 	}
