@@ -3,12 +3,9 @@ package goexifgps
 // Author : kurtcc on github
 // This will be called parse.go
 import (
-	"encoding/json"
-	"fmt"
 	"github.com/rwcarlsen/goexif/exif"
 	"github.com/rwcarlsen/goexif/tiff"
 	"os"
-	"strings"
 
 //This is how to print a given field
 )
