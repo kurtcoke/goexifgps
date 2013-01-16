@@ -17,12 +17,12 @@ func TestGetGPS(t *testing.T) {
 	if err != nil {
 		t.Error("This image should open and decode fine.")
 	}
-	_, err := GetGPS(TrueI)
+	_, err = GetGPS(TrueI)
 	// If err != nil something is wrong
 	if err != nil {
 		t.Error("This image should work without returning errors!")
 	}
-	_, err := GetGPS(FalseI)
+	_, err = GetGPS(FalseI)
 	// If err == nil something is wrong.
 	if err == nil {
 		t.Error("This image should return an error!")
