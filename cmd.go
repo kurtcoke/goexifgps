@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"github.com/kurtcc/goexifgps"
 	"github.com/rwcarlsen/goexif/exif"
 	"io"
 	"os"
@@ -16,7 +15,7 @@ func main() {
 		fmt.Println("Error decoding exif, or no exif in file.")
 	}
 	if err != io.EOF {
-		Location, err2 := goexifgps.DecodeGPS(ExifData)
+		Location, err2 := DecodeGPS(ExifData)
 		if err2 != io.EOF {
 			fmt.Println(Location)
 		}
