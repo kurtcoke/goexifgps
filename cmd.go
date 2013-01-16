@@ -12,7 +12,7 @@ func main() {
 	R = os.Stdin
 	ExifData, err := exif.Decode(R)
 	if err == io.EOF {
-		fmt.Println("Error decoding exif, or no exif in file.")
+    fmt.Fprintf(os.Stderr,"%s\n","Error decoding file.") 
 	}
 	if err != io.EOF {
 		Location, err2 := DecodeGPS(ExifData)
@@ -20,8 +20,7 @@ func main() {
 			fmt.Println(Location)
 		}
 		if err2 == io.EOF {
-			fmt.Println("No GPS data in Exif!")
-
+		fmt.Fprintf(os.Stderr,"%s\n","Contains no GPS exif data.")
 		}
 	}
 
