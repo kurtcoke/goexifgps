@@ -13,7 +13,7 @@ func main() {
 	R = os.Stdin
 	ExifData, err := exif.Decode(R)
 	if err == io.EOF {
-		fmt.Println("Error decoding exif, or now exif in file.")
+		fmt.Println("Error decoding exif, or no exif in file.")
 	}
 	if err != io.EOF {
 		Location, err2 := goexifgps.DecodeGPS(ExifData)
