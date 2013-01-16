@@ -22,8 +22,6 @@ type GeoFields struct {
 	Lat, Long       float32
 }
 
-// Use like this
-//LatRef, Lat, LongRef,Longd := OpenParseJson("_JEF018993_sm.jpg") 
 func OpenClose(filename string) (*exif.Exif, error) {
 	f, err := os.Open(filename)
 	if err != nil {
