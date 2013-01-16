@@ -1,6 +1,6 @@
 #!/bin/bash
-# Runs command line tool on all the jpeg files in current dir.
-FILES=$PWD/*.jpg
+# Runs command line tool on all the jpeg files in testdata/ 
+FILES=$PWD/testdata/*.jpg
 for f in $FILES
 do
   cat $f | go run cmd.go
