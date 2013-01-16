@@ -13,7 +13,7 @@ func TestOpenClose(t *testing.T) {
 	FalseImage := "testdata/WTgX4.jpg"
 	ExifData2, err := OpenClose(FalseImage)
 	//This should work fine still, but below should return error.
-	_, err := DecodeGPS(ExifData2)
+	_, err = DecodeGPS(ExifData2)
 	if err == nil {
 		t.Error("This image has been tested and should return an error!", err)
 	}
