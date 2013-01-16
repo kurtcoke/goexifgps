@@ -8,7 +8,7 @@ func TestDecodeGPS(t *testing.T) {
 	//FalseImage := "testdata/WTgX4.jpg"
 	// Does not contain GPS data.
 	// First will return string, latter will return error.
-	ExifData, err := OpenClose(TrueImage)
+	_, err := OpenClose(TrueImage)
 	// We know the above works, we have GoExifGPS2_test.go to prove it.
 	if err != nil {
 		t.Error("This should work without returning an error.")
