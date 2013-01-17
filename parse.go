@@ -25,7 +25,7 @@ type GeoFields struct {
 func OpenClose(filename string) (*exif.Exif, error) {
 	f, err := os.Open(filename)
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
 	ExifData, err2 := exif.Decode(f)
 	f.Close()
@@ -44,12 +44,12 @@ func GetGPS(E *exif.Exif) (*GeoFields, error) {
 	F := new(GeoFields)
 	LatVal, err := E.Get("GPSLatitude")
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
 	F.Lat = FormatGPS(LatVal)
 	LongVal, err := E.Get("GPSLongitude")
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
 	F.Long = FormatGPS(LongVal)
 
