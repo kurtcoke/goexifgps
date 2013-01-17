@@ -35,9 +35,8 @@ func RefFormat(ref string, decGPS float32) float32 { //Pass Ref and result of fo
 		break
 	case "E":
 		break
-	// So only two left will always only be one of them will use this method twice
-	// once for Latitude once for Longitude
-	default:
+	
+	case "S","W":
 		decGPS *= float32(-1)
 
 	}
