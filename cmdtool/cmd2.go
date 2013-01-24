@@ -10,21 +10,21 @@ import (
 )
 
 func main() {
- 	Rr := flag.String("image", "", "Dont use pngs please.")    
+	Rr := flag.String("image", "", "Dont use pngs please.")
 	flag.Parse()
 	What := flag.NFlag()
 	var R io.Reader
-	
+
 	switch What {
 	case 0:
 		R = os.Stdin
 		break
 	case 1:
-		
+
 		Rrr, err := os.Open(*Rr)
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "%s\n", "Cant open file.")
-		}  
+		}
 		R = Rrr
 		break
 	}
