@@ -4,7 +4,10 @@ goexifgps
 Just a small library to get GPS values extracted from jpeg's using rwcarlsen's goexif 
 library into a form readable by google maps and similiar mapping tools e.g arcGIS.
 
-cmd.go is a commandline tool. You can use a bash script to scan large amounts of photo's with the command line tool and just write stdout to a text file. 
+cmdtool.go is a commandline tool. You can use a bash script to scan large amounts of photo's with the command line tool and just write stdout to a text file. 
+
+The code is pretty self-expanatory, but the docs are also available at:
+http://godoc.org/github.com/kurtcc/goexifgps
 
 goexif:
 -------
