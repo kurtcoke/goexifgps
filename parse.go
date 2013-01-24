@@ -6,8 +6,6 @@ import (
 	"github.com/rwcarlsen/goexif/exif"
 	"github.com/rwcarlsen/goexif/tiff"
 	"os"
-
-//This is how to print a given field
 )
 
 type Exif struct {
@@ -22,6 +20,8 @@ type GeoFields struct {
 	Lat, Long       float32
 }
 
+//Opens using filename and does exif.Decode
+// filename will be known if it is passed as flag via commandline.
 func OpenClose(filename string) (*exif.Exif, error) {
 	f, err := os.Open(filename)
 	if err != nil {
@@ -36,11 +36,10 @@ func OpenClose(filename string) (*exif.Exif, error) {
 
 }
 
-// Gonna make it also return errors. (*GeoFields, error)
+// Returns pointer to struct GeoFields 
+// can easily be accessed E.Lat, E.Long etc       
 func GetGPS(E *exif.Exif) (*GeoFields, error) {
-	// I want this to return all four values each as a string.	
-	// Was named OpenParseJson now named GetGPS
-	// Gebruik exif.Get[Some field related to gps] om te check vir errors
+
 	F := new(GeoFields)
 	LatVal, err := E.Get("GPSLatitude")
 	if err != nil {
