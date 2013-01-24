@@ -10,5 +10,5 @@ func TestOpenClose(t *testing.T) {
 	if err != nil {
 		t.Error("This image has been tested and should work.", err)
 	}
-  
+
 }
