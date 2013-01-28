@@ -11,3 +11,10 @@ Print errors to text file and GPS locations to console.
 
 
 Perhaps use a more descriptive name when you "go install" it on your own machine.
+
+Install as binary:
+-----------------
+
+$ go install cmdtool.go
+
+$ sudo cp $GOBIN/cmdtool /usr/bin
