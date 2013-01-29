@@ -14,7 +14,7 @@ func main() {
 	flag.Parse()
 	var R io.Reader
 
-	    if len(*ImageFileName) > 0 {
+	if len(*ImageFileName) > 0 {
 
 		Rrr, err := os.Open(*ImageFileName)
 		if err != nil {
@@ -25,7 +25,6 @@ func main() {
 	if len(*ImageFileName) == 0 {
 		R = os.Stdin
 	}
-
 
 	ExifData, err := exif.Decode(R)
 	if err == io.EOF {
