@@ -53,8 +53,13 @@ func GetGPS(E *exif.Exif) (*GeoFields, error) {
 	F.Long = FormatGPS(LongVal)
 
 	LatRefVal, err := E.Get("GPSLatitudeRef") //Lat and LatRef
+	if err != nil {
+		return nil, err
+	}
 	LongRefVal, err := E.Get("GPSLongitudeRef")
-
+	if err != nil {
+		return nil, err
+	}
 	F.LatRef = LatRefVal.StringVal()
 	F.LongRef = LongRefVal.StringVal()
 
