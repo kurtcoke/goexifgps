@@ -3,5 +3,5 @@
 FILES=$PWD/*.jpg
 for f in $FILES
 do
-  cat $f | go run cmd.go
+  cat $f | cmdtool
 done
