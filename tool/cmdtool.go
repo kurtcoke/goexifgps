@@ -10,35 +10,33 @@ import (
 )
 
 func main() {
-	Rr := flag.String("image", "", "Dont use pngs please.")
+	ImageFileName := flag.String("image", "", "Dont use pngs please.")
 	flag.Parse()
-	What := flag.NFlag()
 	var R io.Reader
 
-	switch What {
-	case 0:
-		R = os.Stdin
-		break
-	case 1:
+	    if len(*ImageFileName) > 0 {
 
-		Rrr, err := os.Open(*Rr)
+		Rrr, err := os.Open(*ImageFileName)
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "%s\n", "Cant open file.")
 		}
 		R = Rrr
-		break
 	}
+	if len(*ImageFileName) == 0 {
+		R = os.Stdin
+	}
+
 
 	ExifData, err := exif.Decode(R)
 	if err == io.EOF {
 		fmt.Fprintf(os.Stderr, "%s\n", "Error decoding file.")
 	}
 	if err != io.EOF {
-		Location, err2 := goexifgps.DecodeGPS(ExifData)
-		if err2 != io.EOF {
+		Location, err := goexifgps.DecodeGPS(ExifData)
+		if err != io.EOF {
 			fmt.Println(Location)
 		}
-		if err2 == io.EOF {
+		if err == io.EOF {
 			fmt.Fprintf(os.Stderr, "%s\n", "Contains no GPS exif data.")
 		}
 	}
