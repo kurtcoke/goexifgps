@@ -1,7 +1,7 @@
 #!/bin/bash
 # Runs command line tool on all the jpeg files in testdata/ 
-FILES=$PWD/*.jpg
+FILES=../testdata/*.jpg
 for f in $FILES
 do
-  cat $f | cmdtool
+  cat $f | cmdtool 2> /dev/null
 done
