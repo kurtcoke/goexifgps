@@ -36,8 +36,8 @@ func OpenClose(filename string) (*exif.Exif, error) {
 
 }
 
-// Returns pointer to struct GeoFields 
-// can easily be accessed E.Lat, E.Long etc       
+// Returns pointer to struct GeoFields
+// can easily be accessed E.Lat, E.Long etc
 func GetGPS(E *exif.Exif) (*GeoFields, error) {
 
 	F := new(GeoFields)
@@ -45,12 +45,18 @@ func GetGPS(E *exif.Exif) (*GeoFields, error) {
 	if err != nil {
 		return nil, err
 	}
-	F.Lat = FormatGPS(LatVal)
+	F.Lat, err = FormatGPS(LatVal)
+	if err != nil {
+		return nil, err
+	}
 	LongVal, err := E.Get("GPSLongitude")
 	if err != nil {
 		return nil, err
 	}
-	F.Long = FormatGPS(LongVal)
+	F.Long, err = FormatGPS(LongVal)
+	if err != nil {
+		return nil, err
+	}
 
 	LatRefVal, err := E.Get("GPSLatitudeRef") //Lat and LatRef
 	if err != nil {
@@ -60,8 +66,14 @@ func GetGPS(E *exif.Exif) (*GeoFields, error) {
 	if err != nil {
 		return nil, err
 	}
-	F.LatRef = LatRefVal.StringVal()
-	F.LongRef = LongRefVal.StringVal()
+	F.LatRef, err = LatRefVal.StringVal()
+	if err != nil {
+		return nil, err
+	}
+	F.LongRef, err = LongRefVal.StringVal()
+	if err != nil {
+		return nil, err
+	}
 
 	// *** Longitude
 

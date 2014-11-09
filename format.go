@@ -6,23 +6,26 @@ import (
 	"github.com/rwcarlsen/goexif/tiff"
 )
 // Get values written as big.Rat returns the result in a more sensible formatting.
-func FormatGPS(t *tiff.Tag) float32 {
+func FormatGPS(t *tiff.Tag) (float32, error) {
 
 	Dec := make([]float32, 3)
 	for count := 0; count < 3; count++ {
 
-		Numer, Denom := t.Rat2(count) 
+		Numer, Denom, err := t.Rat2(count)
+		if err != nil {
+			return 0, err
+		}
 		Dec[count] = float32(Numer) / float32(Denom)
 	}
 
 	DecGPS := float32(Dec[0]) + float32(Dec[1]/60) + float32(Dec[2]/3600)
-	return DecGPS
+	return DecGPS, nil
 	//DecGPS := Hours + Minutes/float32(60) + Seconds/float32(3600)
 }
-//Pass it Lat or Long Ref values and result of formatGPS    
+//Pass it Lat or Long Ref values and result of formatGPS
 // For Latitude: If N the result is positive if S then negative.
 // For Longitude: If the result is E then it is positive, if it is W then it is negative.
-func RefFormat(ref string, decGPS float32) float32 { 
+func RefFormat(ref string, decGPS float32) float32 {
 	switch ref {
 	case "N":
 		break
@@ -37,8 +40,8 @@ func RefFormat(ref string, decGPS float32) float32 {
 }
  	//Takes values of latitude and longitude returned by RefFormat
 	// and turns into a string that is in decimal and can be used on google maps
-	// and thus is "map friendly"     
-                      
+	// and thus is "map friendly"
+
 func MapFriendly(latt, lonn float32) string {
 
 	return fmt.Sprintf("%v,%v", latt, lonn)
