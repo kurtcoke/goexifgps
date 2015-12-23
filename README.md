@@ -7,7 +7,7 @@ library into a form readable by google maps and similiar mapping tools e.g arcGI
 cmdtool.go is a commandline tool. You can use a bash script to scan large amounts of photo's with the command line tool and just write stdout to a text file. 
 
 The code is pretty self-expanatory, but the docs are also available at:
-http://godoc.org/github.com/kurtcc/goexifgps
+http://godoc.org/github.com/kurtcoke/goexifgps
 
 goexif:
 -------
@@ -27,7 +27,7 @@ $ go get github.com/rwcarlsen/goexif/tiff
 $ go get github.com/rwcarlsen/goexif/exif
 
 
-$ go get github.com/kurtcc/goexifgps
+$ go get github.com/kurtcoke/goexifgps
 
 
 Using cmd.go:
