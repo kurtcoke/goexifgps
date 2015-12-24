@@ -41,27 +41,36 @@ func OpenClose(filename string) (*exif.Exif, error) {
 func GetGPS(E *exif.Exif) (*GeoFields, error) {
 
 	F := new(GeoFields)
+
 	LatVal, err := E.Get("GPSLatitude")
 	if err != nil {
 		return nil, err
 	}
 	F.Lat = FormatGPS(LatVal)
+
+
 	LongVal, err := E.Get("GPSLongitude")
 	if err != nil {
 		return nil, err
 	}
 	F.Long = FormatGPS(LongVal)
 
+
+//Need to add more comments. Would help
 	LatRefVal, err := E.Get("GPSLatitudeRef") //Lat and LatRef
 	if err != nil {
 		return nil, err
 	}
+	Foo1 := LatRefVal.StringVal()
+	F.LatRef = Foo1
+
 	LongRefVal, err := E.Get("GPSLongitudeRef")
 	if err != nil {
 		return nil, err
 	}
-	F.LatRef = LatRefVal.StringVal()
-	F.LongRef = LongRefVal.StringVal()
+	
+	Foo2 := LongRefVal.StringVal()
+	F.LongRef = Foo2
 
 	// *** Longitude
 
