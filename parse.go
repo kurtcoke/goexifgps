@@ -61,7 +61,7 @@ func GetGPS(E *exif.Exif) (*GeoFields, error) {
 	if err != nil {
 		return nil, err
 	}
-	Foo1 := LatRefVal.StringVal()
+	Foo1 := LatRefVal.String()
 	F.LatRef = Foo1
 
 	LongRefVal, err := E.Get("GPSLongitudeRef")
@@ -69,7 +69,7 @@ func GetGPS(E *exif.Exif) (*GeoFields, error) {
 		return nil, err
 	}
 	
-	Foo2 := LongRefVal.StringVal()
+	Foo2 := LongRefVal.String()
 	F.LongRef = Foo2
 
 	// *** Longitude
