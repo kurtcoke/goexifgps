@@ -3,7 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
-	"github.com/kurtcc/goexifgps"
+	"github.com/kurtcoke/goexifgps"
 	"github.com/rwcarlsen/goexif/exif"
 	"io"
 	"os"

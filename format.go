@@ -11,7 +11,9 @@ func FormatGPS(t *tiff.Tag) float32 {
 	Dec := make([]float32, 3)
 	for count := 0; count < 3; count++ {
 
-		Numer, Denom := t.Rat2(count) 
+		Numer, Denom, _ := t.Rat2(count) 
+		// Add error checking somewhere?
+
 		Dec[count] = float32(Numer) / float32(Denom)
 	}
 
